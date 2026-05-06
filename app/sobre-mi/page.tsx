@@ -108,7 +108,7 @@ export default function SobreMiPage() {
           </p>
           <p>
             <span className="text-white font-medium">Dev tools:</span> VS
-            Code, Git/GitHub, Slack, Linear cuando tengo equipo.
+            Code, Git/GitHub, Slack.
           </p>
         </div>
       </section>

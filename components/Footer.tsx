@@ -33,10 +33,10 @@ export default function Footer() {
             <a href="https://github.com/damitymo" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">
               <Github className="h-4 w-4" />
             </a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">
+            <a href="https://www.linkedin.com/in/damitymo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">
               <Linkedin className="h-4 w-4" />
             </a>
-            <a href="mailto:hola@elprofetymo.com.ar" aria-label="Email" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">
+            <a href="mailto:tymoszukdamiandejesus@gmail.com" aria-label="Email" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">
               <Mail className="h-4 w-4" />
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Slack" className="rounded-lg border border-white/10 p-2 hover:border-white/30 hover:text-white">

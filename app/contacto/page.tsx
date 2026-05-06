@@ -8,14 +8,14 @@ export const metadata = {
 const canales = [
   {
     icon: Mail,
-    label: "hola@elprofetymo.com.ar",
-    href: "mailto:hola@elprofetymo.com.ar",
+    label: "tymoszukdamiandejesus@gmail.com",
+    href: "mailto:tymoszukdamiandejesus@gmail.com",
     description: "Para colaboraciones, consultas del cursado o lo que sea.",
   },
   {
     icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/",
+    label: "LinkedIn · damitymo",
+    href: "https://www.linkedin.com/in/damitymo/",
     description: "Si querés conectar profesionalmente.",
   },
   {

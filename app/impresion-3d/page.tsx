@@ -18,7 +18,7 @@ const capacidades = [
   {
     icon: Ruler,
     title: "Tamaño máximo",
-    text: "Hasta 220 × 220 × 250 mm. Piezas más grandes se dividen en partes y se ensamblan.",
+    text: "Hasta 220 × 220 × 220 mm. Piezas más grandes se dividen en partes y se ensamblan.",
   },
   {
     icon: Palette,
@@ -37,13 +37,68 @@ const capacidades = [
   },
 ];
 
+// 👇 Galería de trabajos. Las fotos van en /public/3d/ con estos nombres exactos.
+//    Sumá / sacá / reordená libremente.
+const galeria: Array<{ src: string; alt: string; caption?: string }> = [
+  {
+    src: "/3d/oveja-y-cohete.jpg",
+    alt: "Pieza decorativa de oveja blanca y cohete con base roja",
+    caption: "Oveja decorativa + cohete · PLA",
+  },
+  {
+    src: "/3d/floks-llaveros.jpg",
+    alt: "Colección de llaveros de personajes Flork en bolsitas individuales",
+    caption: "Llaveros Flork · serie completa",
+  },
+  {
+    src: "/3d/mates.jpg",
+    alt: "Tres mates impresos: dos fucsia y uno verde",
+    caption: "Mates personalizados · PLA",
+  },
+  {
+    src: "/3d/baby-groot.jpg",
+    alt: "Figura de Baby Groot pintada en bronce",
+    caption: "Baby Groot · acabado bronce",
+  },
+  {
+    src: "/3d/carpincho.jpg",
+    alt: "Figura realista de carpincho",
+    caption: "Carpincho · figura realista",
+  },
+  {
+    src: "/3d/figura-anime.jpg",
+    alt: "Figura anime de mujer con espada rosa y trenza larga",
+    caption: "Figura anime · pintada a mano",
+  },
+  {
+    src: "/3d/luffy.jpg",
+    alt: "Busto de Luffy de One Piece sobre tesoro de monedas",
+    caption: "Luffy · One Piece",
+  },
+  {
+    src: "/3d/pez.jpg",
+    alt: "Figura realista de pez de río con detalles pintados",
+    caption: "Pez de río · pintado a mano",
+  },
+  {
+    src: "/3d/at-at.jpg",
+    alt: "AT-AT Walker de Star Wars con detalles de panel y armas",
+    caption: "AT-AT Walker · Star Wars",
+  },
+  {
+    src: "/3d/majin-vegeta.jpg",
+    alt: "Figura de Majin Vegeta en pose de pelea",
+    caption: "Majin Vegeta · Dragon Ball",
+  },
+];
+
 const servicios = [
   {
     title: "Prototipos funcionales",
     desc: "Para validar diseños antes de mandar a inyección o mecanizado.",
     items: [
       "Tolerancias controladas",
-      "Modelos en CAD propio o tuyo (.stl, .step)",
+      "Modelos en CAD propio o tuyo (.stl)",
       "Iteraciones rápidas",
     ],
   },
@@ -135,30 +190,35 @@ export default function Impresion3DPage() {
         </div>
       </section>
 
-      {/* GALERÍA (placeholder hasta tener fotos) */}
+      {/* GALERÍA */}
       <section className="container-narrow py-12">
         <h2 className="text-2xl font-medium mb-2">Trabajos recientes</h2>
         <p className="text-white/60 mb-7">
-          Algunas piezas que salieron de la impresora últimamente.
+          Algunas piezas que salieron de la impresora últimamente. Pasá el
+          mouse para ver el detalle.
         </p>
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
-          {/* Reemplazá estos placeholders agregando imágenes en /public/3d/
-              y llenando el array. */}
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={i}
-              className="aspect-square rounded-2xl border border-white/10 bg-white/[0.03] flex items-center justify-center text-white/30 text-xs"
+
+        <div className="columns-2 md:columns-3 gap-4 [column-fill:_balance]">
+          {galeria.map((g) => (
+            <figure
+              key={g.src}
+              className="group break-inside-avoid mb-4 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]"
             >
-              foto {i + 1}
-            </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={g.src}
+                alt={g.alt}
+                loading="lazy"
+                className="block w-full h-auto transition duration-500 group-hover:scale-[1.02]"
+              />
+              {g.caption && (
+                <figcaption className="px-3 py-2 text-xs text-white/65 border-t border-white/5">
+                  {g.caption}
+                </figcaption>
+              )}
+            </figure>
           ))}
         </div>
-        <p className="text-xs text-white/40 mt-4">
-          ⓘ Galería en construcción. Subí fotos a{" "}
-          <code className="text-brand-orange-light">/public/3d/</code> y
-          actualizá el grid en{" "}
-          <code className="text-brand-orange-light">app/impresion-3d/page.tsx</code>.
-        </p>
       </section>
 
       {/* PROCESO */}
@@ -218,7 +278,7 @@ export default function Impresion3DPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="mailto:hola@elprofetymo.com.ar?subject=Cotizaci%C3%B3n%20impresi%C3%B3n%203D"
+                href="mailto:tymoszukdamiandejesus@gmail.com?subject=Cotizaci%C3%B3n%20impresi%C3%B3n%203D"
                 className="btn-primary"
               >
                 <Mail className="h-4 w-4" />
