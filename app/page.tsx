@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Zap, GraduationCap, PenLine, ArrowRight } from "lucide-react";
-import CurrentlyCard from "@/components/CurrentlyCard";
+import StackCard from "@/components/StackCard";
 import HighlightCard from "@/components/HighlightCard";
 import PostCard from "@/components/PostCard";
 import { getAllPosts } from "@/lib/posts";
@@ -33,7 +33,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <CurrentlyCard />
+          <StackCard />
         </div>
       </section>
 

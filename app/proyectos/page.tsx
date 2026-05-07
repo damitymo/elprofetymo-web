@@ -1,28 +1,18 @@
 import { Github, Star, GitFork, ExternalLink } from "lucide-react";
-import { getRepos, GITHUB_USER } from "@/lib/github";
+import { getRepos, GITHUB_USER, GithubRepo } from "@/lib/github";
+import { getMeta } from "@/lib/projectsMeta";
 
 export const metadata = {
   title: "Proyectos",
   description: "Repositorios públicos sincronizados desde GitHub.",
 };
 
-// Cuáles destacar arriba (usá el nombre exacto del repo).
-const FEATURED = new Set<string>([
-  // Ejemplo: "elprofetymo-web"
-  // Sumá los que quieras destacar.
-]);
-
-// Repos que NO quiero mostrar (privados de práctica, dotfiles, etc).
-const HIDDEN = new Set<string>([
-  // "playground",
-]);
-
 export default async function ProyectosPage() {
   const repos = await getRepos();
 
-  const visible = repos.filter((r) => !HIDDEN.has(r.name));
-  const featured = visible.filter((r) => FEATURED.has(r.name));
-  const otros = visible.filter((r) => !FEATURED.has(r.name));
+  const visible = repos.filter((r) => !getMeta(r.name)?.hidden);
+  const featured = visible.filter((r) => getMeta(r.name)?.highlight);
+  const otros = visible.filter((r) => !getMeta(r.name)?.highlight);
 
   return (
     <section className="container-narrow pt-16 pb-12">
@@ -31,7 +21,7 @@ export default async function ProyectosPage() {
         <h1 className="text-4xl font-medium mb-3">Cosas que hago</h1>
         <p className="text-white/65">
           Estos son mis repos públicos en GitHub, sincronizados automáticamente
-          cada hora. Los más recientes arriba.
+          cada hora. Arriba van los destacados.
         </p>
       </div>
 
@@ -43,7 +33,7 @@ export default async function ProyectosPage() {
       ) : (
         <>
           {featured.length > 0 && (
-            <div className="mb-10">
+            <div className="mb-12">
               <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                 Destacados
               </p>
@@ -55,14 +45,18 @@ export default async function ProyectosPage() {
             </div>
           )}
 
-          <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
-            Todos los repos ({otros.length})
-          </p>
-          <div className="grid gap-4 md:grid-cols-2">
-            {otros.map((r) => (
-              <RepoCard key={r.id} repo={r} />
-            ))}
-          </div>
+          {otros.length > 0 && (
+            <>
+              <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
+                Otros repos ({otros.length})
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
+                {otros.map((r) => (
+                  <RepoCard key={r.id} repo={r} />
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
 
@@ -85,26 +79,37 @@ function RepoCard({
   repo,
   highlight,
 }: {
-  repo: Awaited<ReturnType<typeof getRepos>>[number];
+  repo: GithubRepo;
   highlight?: boolean;
 }) {
+  const meta = getMeta(repo.name);
+  const title = meta?.alias ?? repo.name;
+  const description = meta?.description ?? repo.description;
+
   return (
     <div
       className={`card flex flex-col ${
         highlight ? "!border-brand-orange/40" : ""
       }`}
     >
-      <div className="flex items-start justify-between mb-2">
-        <p className="font-medium text-white">{repo.name}</p>
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <p className="font-medium text-white">{title}</p>
         {highlight && (
-          <span className="text-[10px] text-brand-orange-light bg-brand-orange/15 px-2 py-0.5 rounded-md">
+          <span className="text-[10px] text-brand-orange-light bg-brand-orange/15 px-2 py-0.5 rounded-md whitespace-nowrap">
             destacado
           </span>
         )}
       </div>
 
-      <p className="text-sm text-white/65 leading-relaxed mb-4 flex-1 min-h-[2.5em]">
-        {repo.description || (
+      {/* slug del repo cuando hay alias, así no se pierde */}
+      {meta?.alias && (
+        <p className="text-[11px] font-mono text-white/35 mb-2.5">
+          {repo.name}
+        </p>
+      )}
+
+      <p className="text-sm text-white/70 leading-relaxed mb-4 flex-1 min-h-[2.5em]">
+        {description || (
           <span className="italic text-white/40">Sin descripción</span>
         )}
       </p>
